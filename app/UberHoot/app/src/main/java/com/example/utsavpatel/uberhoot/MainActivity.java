@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
@@ -38,5 +40,16 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /** Called when the user clicks the Proceed button */
+    public void sendPickupLocation(View view) {
+        // Do something in response to button
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        String message = editText.getText().toString();
+        System.out.println("--------------- Pickup Location:: " + message);
+
+        String url = "https://login.uber.com/oauth/authorize";
+
     }
 }
