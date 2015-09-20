@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
                             + "&client_id=" + UBER_CLIENT_ID + "&grant_type=" + code + "&redirect_uri=" + URLEncoder.encode(UBER_REDIRECT_URI)
                             + "&code=" + code + "&response_type=code");
                     if(!view.getUrl().toLowerCase().contains("error")) {
-                        Intent returnAcc = new Intent(getApplicationContext(),HomeActivity.class);
+                        Intent returnAcc = new Intent(getApplicationContext(),Login.class);
                         startActivity(returnAcc);
                     }
                 }
