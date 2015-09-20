@@ -3,7 +3,9 @@ package com.example.utsavpatel.uberhoot;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.utsavpatel.uberhoot.ParseUtils.ChatUtils;
 import com.example.utsavpatel.uberhoot.custom.CustomActivity;
 import com.example.utsavpatel.uberhoot.utils.Const;
 import com.example.utsavpatel.uberhoot.utils.Utils;
@@ -29,6 +32,7 @@ import com.parse.ParseUser;
  */
 public class UserList extends CustomActivity
 {
+	ProgressDialog dia;
 
 	/** The Chat list. */
 	private ArrayList<ParseUser> uList;
@@ -53,11 +57,43 @@ public class UserList extends CustomActivity
 			public void onClick(View view) {
 
 				// write code to fetch the random user id when the user wants to talk to a random person
+				CharSequence colors[] = new CharSequence[] {"Random", "Tech", "Movies", "Music"};
 
-				startActivity(new Intent(UserList.this,
-		Chat.class).putExtra(Const.EXTRA_DATA, "variable")); // insert the username you got here in place of "variable"
+				AlertDialog.Builder builder = new AlertDialog.Builder(UserList.this);
+				builder.setTitle("Chat about:");
+				builder.setItems(colors, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//startDia();
+						ChatUtils chat = new ChatUtils(UserList.this);
+						chat.startNewChat(ParseUser.getCurrentUser(), "random", true, UserList.this);
+					}
+				});
+				builder.show();
+
+
+				//startActivity(new Intent(UserList.this,Chat.class).putExtra(Const.EXTRA_DATA, "variable")); // insert the username you got here in place of "variable"
 			}
 		});
+	}
+
+	public void StartChatActivity(String friendId) {
+		if(dia!=null)
+			dia.dismiss();
+		Intent mainIntent = new Intent(getApplicationContext(), Chat.class).putExtra(Const.EXTRA_DATA, friendId);
+		startActivity(mainIntent);
+		finish();
+	}
+
+	public void startDia(){
+		dia = ProgressDialog.show(this, null,
+				getString(R.string.alert_wait));
+	}
+
+	public void stopDia(){
+		if(dia!=null)
+			dia.dismiss();
+		dia = null;
 	}
 
 	/* (non-Javadoc)
@@ -104,11 +140,9 @@ public class UserList extends CustomActivity
 				.findInBackground(new FindCallback<ParseUser>() {
 
 					@Override
-					public void done(List<ParseUser> li, ParseException e)
-					{
+					public void done(List<ParseUser> li, ParseException e) {
 						dia.dismiss();
-						if (li != null)
-						{
+						if (li != null) {
 							if (li.size() == 0)
 								Toast.makeText(UserList.this,
 										R.string.msg_no_user_found,
@@ -121,17 +155,14 @@ public class UserList extends CustomActivity
 
 								@Override
 								public void onItemClick(AdapterView<?> arg0,
-										View arg1, int pos, long arg3)
-								{
+														View arg1, int pos, long arg3) {
 									startActivity(new Intent(UserList.this,
 											Chat.class).putExtra(
 											Const.EXTRA_DATA, uList.get(pos)
 													.getUsername()));
 								}
 							});
-						}
-						else
-						{
+						} else {
 							Utils.showDialog(
 									UserList.this,
 									getString(R.string.err_users) + " "
@@ -143,10 +174,16 @@ public class UserList extends CustomActivity
 				});
 	}
 
+
+
 	/**
 	 * The Class UserAdapter is the adapter class for User ListView. This
 	 * adapter shows the user name and it's only online status for each item.
 	 */
+	public void createToast(String msg) {
+		Toast.makeText(UserList.this, msg, Toast.LENGTH_SHORT).show();
+	}
+
 	private class UserAdapter extends BaseAdapter
 	{
 

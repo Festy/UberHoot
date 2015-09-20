@@ -141,7 +141,7 @@ public class Chat extends CustomActivity
 		adp.notifyDataSetChanged();
 		txt.setText(null);
 
-		ParseObject po = new ParseObject("Chat");
+		ParseObject po = new ParseObject("Messages");
 		po.put("sender", UserList.user.getUsername());
 		po.put("receiver", buddy);
 		// po.put("createdAt", "");
@@ -166,7 +166,7 @@ public class Chat extends CustomActivity
 	 */
 	private void loadConversationList()
 	{
-		ParseQuery<ParseObject> q = ParseQuery.getQuery("Chat");
+		ParseQuery<ParseObject> q = ParseQuery.getQuery("Messages");
 		if (convList.size() == 0)
 		{
 			// load all messages...

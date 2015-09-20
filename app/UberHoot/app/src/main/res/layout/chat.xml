@@ -25,7 +25,7 @@
     android:background="@color/gray_light"
     android:gravity="center_vertical"
     android:padding="@dimen/pad_5dp"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     
     <EditText
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:hint="@string/type_msg" >
+        android:hint="@string/type_msg">
 
         
     </EditText>
@@ -44,7 +44,8 @@
         style="@style/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_send" />
+        android:background="@drawable/ic_send"
+        />
 
 </LinearLayout>
 

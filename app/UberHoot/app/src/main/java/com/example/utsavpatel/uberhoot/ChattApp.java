@@ -19,8 +19,7 @@ public class ChattApp extends Application
 	{
 		super.onCreate();
 
-		Parse.initialize(this, "aEK4rYnLSxU1AqvXc8Euil0Is8mklk7d4Y3YqC6i",
-				"dYguCg65IT3J2gX2JeFhhDcB25RBjdpceveS8UdU");
+		Parse.initialize(this, "Cm9ccxez45NH1WfpXr165sKc8we6CXY0aFU7lTkY", "PWr2hGd42CPSMtSBJv9zwnFO5LPAqUyO2nca8DqS");
 
 	}
 }

@@ -9,7 +9,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="437dp"
-            android:divider="@color/main_color_green"
+            android:divider="@color/uberColor"
             android:dividerHeight="1dp"
             tools:listitem="@layout/chat_item" >
         </ListView>
@@ -20,6 +20,9 @@
         android:text="Start new chat"
         android:textColor="@color/white"
         android:id="@+id/btchat"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="10pt"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/uberColor"
+        android:fontFamily="sans-serif-thin"/>
 
 </LinearLayout>
